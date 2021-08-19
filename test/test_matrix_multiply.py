@@ -39,7 +39,8 @@ spark.sparkContext.setLogLevel("ERROR")
 
 # Define global testing variables
 iterations = 10
-N_values = [1, 10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
+N_values = [1, 10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, \
+    900, 950, 1000]
 
 # Method to create a populated matrix of size N * N, with potential
 # values ranging from (max_value - 1) through to max_value.
