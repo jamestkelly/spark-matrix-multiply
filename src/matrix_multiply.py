@@ -90,35 +90,43 @@ def indexedrowmatrix_to_array(matrix):
     # Return the local array
     return result
 
-#
-A = create_matrix(N, N)
-B = create_matrix(N, N)
+# Initialise matrices
+A = create_matrix(N, 500)
+B = create_matrix(N, 500)
 C = create_empty_matrix(N)
 
 print('Performing standard matrix multiplication')
 
-#
+# Perform and time matrix multiplication
 start = timer() #
 C = matrix_multiply(A, B, C, N) #
 end = timer() #
 
-#
-print('Wall time:', end - start, '\nResult:')
+# Print the execution time
+print('Best Sequential execution time:', end - start)
 
-#
+# Convert arrays to RDDs
 A_rdd = spark.sparkContext.parallelize(A)
 B_rdd = spark.sparkContext.parallelize(B)
 
-#
+# Perform and time matrix multiplication
 start = timer() #
 C_matrix = as_block_matrix(A_rdd, N, N).multiply(as_block_matrix(B_rdd, N, N)) #
 end = timer() #
 
-#
-print('Wall time:', end - start, '\nResult:')
+# Print the execution time
+print('Apache Spark execution time:', end - start)
 
-#
+# Convert the resulting BlockMatrix to a local array
 result = indexedrowmatrix_to_array(C_matrix.toIndexedRowMatrix())
+
+# Print resulting matrix if it's not excessively large
+if N <= 4:
+    print("Printing sequential result matrix.")
+    for row in C:
+        print(row)
+    print("Printing Spark result matrix")
+    print(result)
 
 # +======================================================================+
 # |                           End of File                                |
