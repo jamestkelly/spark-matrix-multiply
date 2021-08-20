@@ -102,7 +102,7 @@ C = matrix_multiply(A, B, C, N) #
 end = timer() #
 
 # Print the execution time
-print('Best Sequential execution time:', end - start)
+print('Best Sequential execution time (seconds):', end - start)
 
 # Convert arrays to RDDs
 A_rdd = spark.sparkContext.parallelize(A)
@@ -114,7 +114,7 @@ C_matrix = as_block_matrix(A_rdd, N, N).multiply(as_block_matrix(B_rdd, N, N)) #
 end = timer() #
 
 # Print the execution time
-print('Apache Spark execution time:', end - start)
+print('Apache Spark execution time (seconds):', end - start)
 
 # Convert the resulting BlockMatrix to a local array
 result = indexedrowmatrix_to_array(C_matrix.toIndexedRowMatrix())
