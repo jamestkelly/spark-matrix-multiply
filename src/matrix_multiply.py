@@ -71,14 +71,13 @@ def matrix_multiply(A, B, C, size):
     # Return the result of the matrix multiplication
     return C
 
-# Method to convert a Resilient Distributed Dataset (RDD) to a BlockMatrix object.
+# Method to convert a Resilient Distributed Dataset (RDD) to a BlockMatrix object
 def as_block_matrix(rdd, rows, columns):
     return IndexedRowMatrix(
         rdd.zipWithIndex().map(lambda i: IndexedRow(i[1], i[0]))
     ).toBlockMatrix(rows, columns)
 
 # Method to convert an indexed row matrix to a local array using Scipy 'lil_matrix'
-# operation.
 def indexedrowmatrix_to_array(matrix):
     # Create an empty array of the same dimensions as the matrix
     result = lil_matrix((matrix.numRows(), matrix.numCols()))
